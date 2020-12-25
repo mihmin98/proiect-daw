@@ -19,6 +19,7 @@ namespace Bookstore.Data
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<BookRental> BookRentals { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
