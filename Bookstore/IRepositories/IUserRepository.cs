@@ -9,5 +9,6 @@ namespace Bookstore.IRepositories
     public interface IUserRepository : IGenericRepository<User>
     {
         User GetUserByUsernameAndPassword(string username, string password);
+        string GetSaltByUser(string username);
     }
 }

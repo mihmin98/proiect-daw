@@ -22,10 +22,10 @@ namespace Bookstore.Services
         private readonly IUserRepository repository;
         private readonly AppSettings appSettings;
 
-        public UserService(IUserRepository repository, AppSettings appSettings)
+        public UserService(IUserRepository repository, IOptions<AppSettings> appSettings)
         {
             this.repository = repository;
-            this.appSettings = appSettings;
+            this.appSettings = appSettings.Value;
         }
 
         public User GetById(int id)
@@ -40,10 +40,13 @@ namespace Bookstore.Services
 
         public bool Register(AuthenticationRequest request)
         {
+            byte[] salt = CreateSalt();
+            string saltString = Convert.ToBase64String(salt);
             User entity = new User
             {
                 Username = request.Username,
-                Password = HashPassword(request.Password)
+                Password = HashPassword(request.Password, salt),
+                PasswordSalt = saltString
             };
 
             repository.Create(entity);
@@ -52,8 +55,13 @@ namespace Bookstore.Services
 
         public AuthenticationResponse Login(AuthenticationRequest request)
         {
-            User user = repository.GetUserByUsernameAndPassword(request.Username, HashPassword(request.Password));
+            string saltString = repository.GetSaltByUser(request.Username);
+            if (saltString == null)
+                return null;
 
+            byte[] salt = Convert.FromBase64String(saltString);
+            User user = repository.GetUserByUsernameAndPassword(request.Username, HashPassword(request.Password, salt));
+            
             if (user == null)
                 return null;
 
@@ -67,7 +75,7 @@ namespace Bookstore.Services
             };
         }
 
-        private string HashPassword(string password)
+        private byte[] CreateSalt()
         {
             byte[] salt = new byte[128 / 8];
             using (var rng = RandomNumberGenerator.Create())
@@ -75,6 +83,11 @@ namespace Bookstore.Services
                 rng.GetBytes(salt);
             }
 
+            return salt;
+        }
+
+        private string HashPassword(string password, byte[] salt)
+        {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,

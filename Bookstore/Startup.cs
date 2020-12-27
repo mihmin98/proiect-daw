@@ -1,10 +1,20 @@
+using Bookstore.Data;
+using Bookstore.IRepositories;
+using Bookstore.IServices;
+using Bookstore.Repositories;
+using Bookstore.Services;
+using Bookstore.Helpers;
+using Bookstore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 
 namespace Bookstore
 {
@@ -20,16 +30,36 @@ namespace Bookstore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options => 
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<IBookRentalRepository, BookRentalRepository>();
+            services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<IRentalRepository, RentalRepository>();
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
+            services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IRentalService, RentalService>();
+            services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BookstoreDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -42,6 +72,8 @@ namespace Bookstore
                 app.UseHsts();
             }
 
+            dbContext.Database.EnsureCreated();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -50,6 +82,8 @@ namespace Bookstore
             }
 
             app.UseRouting();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

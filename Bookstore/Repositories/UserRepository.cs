@@ -20,5 +20,9 @@ namespace Bookstore.Repositories
             return table.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
         }
 
+        public string GetSaltByUser(string username)
+        {
+            return table.Where(x => x.Username == username).Select(x => x.PasswordSalt).FirstOrDefault();
+        }
     }
 }
