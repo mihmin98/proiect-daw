@@ -13,28 +13,28 @@ namespace Bookstore.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly IUserService service;
 
-        public AuthController(IUserService service)
+        public AuthenticationController(IUserService service)
         {
             this.service = service;
         }
 
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public IActionResult Register(AuthenticationRequest request)
         {
             return Ok(service.Register(request));
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public IActionResult Login(AuthenticationRequest request)
         {
             return Ok(service.Login(request));
         }
 
-        [HttpGet("/isAuth")]
+        [HttpGet("isAuth")]
         [Authorize]
         public IActionResult IsAuth()
         {

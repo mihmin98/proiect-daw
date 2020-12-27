@@ -22,28 +22,28 @@ namespace Bookstore.Controllers
             this.service = service;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Authorize]
         public IActionResult GetAll()
         {
             return Ok(service.GetAll());
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         [Authorize]
         public IActionResult Get(int id)
         {
             return Ok(service.GetById(id));
         }
 
-        [HttpPost("")]
+        [HttpPost]
         [Authorize]
         public IActionResult Create(Book payload)
         {
             return Ok(service.Insert(payload));
         }
 
-        [HttpPut("")]
+        [HttpPut]
         [Authorize]
         public IActionResult Update(Book payload)
         {
