@@ -34,10 +34,6 @@ export class AuthorsComponent implements OnInit {
     return this.apiService.get(this.endpoint + '/' + id);
   }
 
-  viewAuthor(author: Authors) {
-    this.router.navigate(['authors/view', author.id]);
-  }
-
   addAuthor() {
     this.router.navigateByUrl('authors/add');
   }

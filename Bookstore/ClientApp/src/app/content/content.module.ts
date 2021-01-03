@@ -14,7 +14,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AuthorsComponent } from './authors/authors.component';
 import { AuthorsCreateComponent } from './authors/authors-create.component';
 import { AuthorsUpdateComponent } from './authors/authors-update.component';
-import { AuthorsViewComponent } from './authors/authors-view.component';
 import { BooksComponent } from './books/books.component';
 import { BooksCreateComponent } from './books/books-create.component';
 import { DatePipe } from '../pipes/date.pipe';
@@ -33,7 +32,7 @@ import { HighlightDirective } from '../directives/highlight/highlight.directive'
 
 
 @NgModule({
-  declarations: [AuthorsComponent, AuthorsCreateComponent, AuthorsUpdateComponent, AuthorsViewComponent,
+  declarations: [AuthorsComponent, AuthorsCreateComponent, AuthorsUpdateComponent,
     BooksComponent, BooksCreateComponent, DatePipe, BooksUpdateComponent,
     ClientsComponent, ClientsCreateComponent, ClientsUpdateComponent,
     TransactionsComponent, TransactionsCreateComponent, TransactionsUpdateComponent,

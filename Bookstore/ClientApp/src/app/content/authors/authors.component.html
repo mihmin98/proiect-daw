@@ -1,7 +1,7 @@
 <div class="col-md-10 user-container">
     <h2 style="margin: auto" appHighlight>Author Details</h2>
     <br>
-    <button class="btn btn-danger" (click)="addAuthor()">Add Author</button>
+    <button class="btn btn-success" (click)="addAuthor()">Add Author</button>
     <br>
     <table class="table table-striped">
         <thead>
@@ -14,8 +14,7 @@
             <tr *ngFor="let author of authors">
                 <td class="hidden">{{ author.id }}</td>
                 <td>{{ author.name }}</td>
-                <td><button class="btn btn-success" (click)="viewAuthor(author)">View</button>
-                <td><button class="btn btn-success" (click)="deleteAuthor(author)">Delete</button>
+                <td><button class="btn btn-danger" (click)="deleteAuthor(author)">Delete</button>
                     <button class="btn btn-success" (click)="editAuthor(author)"
                         style="margin-left: 20px;">Edit</button>
                 </td>

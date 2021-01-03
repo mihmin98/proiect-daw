@@ -38,10 +38,6 @@ export class TransactionsComponent implements OnInit {
     return this.apiService.get(this.endpoint + '/' + id);
   }
 
-  viewTransaction(transaction: Transactions) {
-    this.router.navigate(['transactions/view', transaction.id]);
-  }
-
   addTransaction() {
     this.router.navigateByUrl('transactions/add');
   }

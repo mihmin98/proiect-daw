@@ -1,7 +1,7 @@
 <div class="col-md-10 user-container">
     <h2 style="margin: auto" appHighlight>Rental Details</h2>
     <br>
-    <button class="btn btn-danger" style="width:100px" (click)="addRental()">Add Rental</button>
+    <button class="btn btn-success" style="width:100px" (click)="addRental()">Add Rental</button>
     <br>
     <table class="table table-striped">
         <thead>
@@ -21,9 +21,16 @@
                 <td>{{ rental.returnDate | datePipe }}</td>
                 <td>{{ rental.clientId }}</td>
                 <td>{{ rental.transactionId }}</td>
-                <td>{{ rental.bookRentals }}</td>
-                <td><button class="btn btn-success" (click)="viewRental(rental)">View</button>
-                <td><button class="btn btn-success" (click)="deleteRental(rental)">Delete</button>
+                <td>
+                    <div *ngFor="let bookRental of rental.bookRentals">
+                        <div *ngFor="let book of books">
+                            <div *ngIf="bookRental.bookId === book.id">
+                                {{ book.title }} - {{ book.price }}$
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td><button class="btn btn-danger" (click)="deleteRental(rental)">Delete</button>
                     <button class="btn btn-success" (click)="editRental(rental)"
                         style="margin-left: 20px;">Edit</button>
                 </td>

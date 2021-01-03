@@ -34,10 +34,6 @@ export class ClientsComponent implements OnInit {
     return this.apiService.get(this.endpoint + '/' + id);
   }
 
-  viewClient(client: Clients) {
-    this.router.navigate(['clientss/view', client.id]);
-  }
-
   addClient() {
     this.router.navigateByUrl('clients/add');
   }

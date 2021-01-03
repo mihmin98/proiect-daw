@@ -17,12 +17,27 @@ export class RentalsComponent implements OnInit {
   rentals: Rentals[];
   rentalToUpdate: Rentals;
 
+  books: Books[]
+
   showUpdateComponent = false;
 
   constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.getRentals();
+
+    // Load book list
+    this.apiService.get('book').subscribe(data => {
+      this.books = data.map((book) => {
+        return <Books>{
+          id: book.id,
+          title: book.title,
+          publicationDate: book.publicationDate,
+          price: book.price,
+          authorId: book.authorId,
+        };
+      });
+    });
   }
 
   getRentals() {
@@ -39,6 +54,16 @@ export class RentalsComponent implements OnInit {
           bookRentals: rental.bookRentals,
         };
       });
+
+      for (let i = 0; i < this.rentals.length; i++) {
+        this.getRental(this.rentals[i].id).subscribe(result => console.log(result));
+        this.getRental(this.rentals[i].id).subscribe(result => this.rentals[i].bookRentals = result.bookRentals.map((rental) => {
+          return <BookRentals>{
+            bookId: rental.bookId,
+            rentalId: rental.rentalId
+          };
+        }));
+      }
     });
   }
 
