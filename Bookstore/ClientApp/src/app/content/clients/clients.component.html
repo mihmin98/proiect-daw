@@ -1,0 +1,28 @@
+<div class="col-md-10 user-container">
+    <h2 style="margin: auto" appHighlight>Client Details</h2>
+    <br>
+    <button class="btn btn-danger" (click)="addClient()">Add Client</button>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="hidden">Id</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let client of clients">
+                <td class="hidden">{{ client.id }}</td>
+                <td>{{ client.name }}</td>
+                <td>{{ client.email }}</td>
+                <td><button class="btn btn-success" (click)="viewClient(client)">View</button>
+                <td><button class="btn btn-success" (click)="deleteClient(client)">Delete</button>
+                    <button class="btn btn-success" (click)="editClient(client)"
+                        style="margin-left: 20px;">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-clients-update [clientToUpdate]="clientToUpdate" [showComponent]="showUpdateComponent" (updatedClient)="updateClient($event)" (hideForm)="hideUpdateForm($event)" [hidden]="!showUpdateComponent"></app-clients-update>
+</div>

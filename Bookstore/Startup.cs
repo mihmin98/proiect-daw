@@ -33,7 +33,7 @@ namespace Bookstore
             services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            services.AddControllersWithViews().AddNewtonsoftJson(options => 
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // In production, the Angular files will be served from this directory
@@ -56,6 +56,19 @@ namespace Bookstore
             services.AddTransient<IRentalService, RentalService>();
             services.AddTransient<ITransactionService, TransactionService>();
             services.AddTransient<IUserService, UserService>();
+
+
+            // services.AddCors(options =>
+            // {
+            //     options.AddPolicy("AllowAll", builder =>
+            //     {
+            //         //builder.WithOrigins("*").WithMethods("GET", "POST", "DELETE", "OPTIONS", "PUT", "PATCH").AllowAnyHeader();
+            //         builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyHeader();
+            //     }
+            //     );
+            // });
+
+            //services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +87,7 @@ namespace Bookstore
 
             dbContext.Database.EnsureCreated();
 
+            //app.UseCors("AllowAll");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -82,6 +96,12 @@ namespace Bookstore
             }
 
             app.UseRouting();
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            });
 
             app.UseMiddleware<JwtMiddleware>();
 

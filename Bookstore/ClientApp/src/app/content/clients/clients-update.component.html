@@ -1,0 +1,24 @@
+<div class="modal-card" style="padding: 4px;">
+    <p>Update Client</p>
+    <div class="example-container">
+        <form [formGroup]="clientForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Id</mat-label>
+                <input [readonly]=true formControlName="id" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <button mat-button color="warn" [disabled]="!clientForm.valid" type="submit" (click)="updateClient()">Update</button>
+            <button (click)="close()">Close</button>
+        </form>
+    </div>
+</div>

@@ -10,6 +10,7 @@ namespace Bookstore.IServices
         List<Rental> GetAll();
         Rental GetById(int id);
         bool Insert(Rental rental);
+        public int InsertAndReturnId(Rental rental);
         bool Update(Rental rental);
         bool Delete(int id);
 

@@ -1,0 +1,30 @@
+<div class="col-md-10 user-container">
+    <h2 style="margin: auto" appHighlight>Transaction Details</h2>
+    <br>
+    <button class="btn btn-danger" style="width:100px" (click)="addTransaction()">Add Transaction</button>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="hidden">Id</th>
+                <th>Bank Account</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transaction of transactions">
+                <td class="hidden">{{ transaction.id }}</td>
+                <td>{{ transaction.bankAccount }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td><button class="btn btn-success" (click)="viewTransaction(transaction)">View</button>
+                <td><button class="btn btn-success" (click)="deleteTransaction(transaction)">Delete</button>
+                    <button class="btn btn-success" (click)="editTransaction(transaction)"
+                        style="margin-left: 20px;">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-transactions-update [transactionToUpdate]="transactionToUpdate" [showComponent]="showUpdateComponent"
+        (updatedTransaction)="updateTransaction($event)" (hideForm)="hideUpdateForm($event)"
+        [hidden]="!showUpdateComponent"></app-transactions-update>
+</div>

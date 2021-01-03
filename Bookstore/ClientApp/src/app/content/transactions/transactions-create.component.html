@@ -1,0 +1,18 @@
+<div>
+    <p>Create Transaction</p>
+    <div class="example-container">
+        <form [formGroup]="transactionForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Bank Account</mat-label>
+                <input formControlName="bankAccount" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Amount</mat-label>
+                <input formControlName="amount" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <button mat-button color="warn" [disabled]="!transactionForm.valid" type="submit" (click)="createTransaction()">Create</button>
+        </form>
+    </div>
+</div>

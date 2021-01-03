@@ -1,0 +1,36 @@
+<div class="col-md-10 user-container">
+    <h2 style="margin: auto" appHighlight>Rental Details</h2>
+    <br>
+    <button class="btn btn-danger" style="width:100px" (click)="addRental()">Add Rental</button>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="hidden">Id</th>
+                <th>Rental Date</th>
+                <th>Return Date</th>
+                <th>Client Id</th>
+                <th>Transaction Id</th>
+                <th>Books Rented</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rental of rentals">
+                <td class="hidden">{{ rental.id }}</td>
+                <td>{{ rental.rentalDate | datePipe }}</td>
+                <td>{{ rental.returnDate | datePipe }}</td>
+                <td>{{ rental.clientId }}</td>
+                <td>{{ rental.transactionId }}</td>
+                <td>{{ rental.bookRentals }}</td>
+                <td><button class="btn btn-success" (click)="viewRental(rental)">View</button>
+                <td><button class="btn btn-success" (click)="deleteRental(rental)">Delete</button>
+                    <button class="btn btn-success" (click)="editRental(rental)"
+                        style="margin-left: 20px;">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-rentals-update [rentalToUpdate]="rentalToUpdate" [showComponent]="showUpdateComponent"
+        (updatedRental)="updateRental($event)" (hideForm)="hideUpdateForm($event)" [hidden]="!showUpdateComponent">
+    </app-rentals-update>
+</div>

@@ -1,0 +1,13 @@
+<div>
+    <p>Create Author</p>
+    <div class="example-container">
+        <form [formGroup]="authorForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <button mat-button color="warn" [disabled]="!authorForm.valid" type="submit" (click)="createAuthor()">Create</button>
+        </form>
+    </div>
+</div>

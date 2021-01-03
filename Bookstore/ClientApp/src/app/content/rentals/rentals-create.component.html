@@ -1,0 +1,50 @@
+<div>
+    <p>Create Rental</p>
+    <div class="example-container">
+        <form [formGroup]="rentalForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Rental Date</mat-label>
+                <input formControlName="rentalDate" matInput [matDatepicker]="pickerRental" class="example-right-align">
+                <mat-datepicker-toggle matSuffix [for]="pickerRental"></mat-datepicker-toggle>
+                <mat-datepicker #pickerRental></mat-datepicker>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Return Date</mat-label>
+                <input formControlName="returnDate" matInput [matDatepicker]="pickerReturn" class="example-right-align">
+                <mat-datepicker-toggle matSuffix [for]="pickerReturn"></mat-datepicker-toggle>
+                <mat-datepicker #pickerReturn></mat-datepicker>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Client</mat-label>
+                <mat-select formControlName="clientIndex">
+                    <mat-option *ngFor="let client of clients; let i = index" [value]="i">
+                        {{ client.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Transaction</mat-label>
+                <mat-select formControlName="transactionIndex">
+                    <mat-option *ngFor="let transaction of transactions; let i = index" [value]="i">
+                        {{ transaction.bankAccount }} - {{ transaction.amount }}$
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Books</mat-label>
+                <mat-select formControlName="bookIndexes" multiple>
+                    <mat-option *ngFor="let book of books; let i = index" [value]="i">
+                        {{ book.title }} - {{ book.price }}$
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <button mat-button color="warn" [disabled]="!rentalForm.valid" type="submit"
+                (click)="createRental()">Create</button>
+        </form>
+    </div>
+</div>

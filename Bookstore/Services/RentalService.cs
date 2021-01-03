@@ -35,6 +35,14 @@ namespace Bookstore.Services
             return rentalRepository.SaveChanges();
         }
 
+        public int InsertAndReturnId(Rental rental)
+        {
+            rentalRepository.Create(rental);
+            rentalRepository.SaveChanges();
+
+            return rental.Id;
+        }
+
         public bool Update(Rental rental)
         {
             rentalRepository.Update(rental);

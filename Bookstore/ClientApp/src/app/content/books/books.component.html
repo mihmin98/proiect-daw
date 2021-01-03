@@ -1,0 +1,30 @@
+<div class="col-md-10 user-container">
+    <h2 style="margin: auto" appHighlight>Book Details</h2>
+    <br>
+    <button class="btn btn-danger" (click)="addBook()">Add Book</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="hidden">Id</th>
+                <th>Title</th>
+                <th>Publication Date</th>
+                <th>Price</th>
+                <th>Author Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of books">
+                <td class="hidden">{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publicationDate | datePipe }}</td>
+                <td>{{ book.price }}</td>
+                <td>{{ book.authorId }}</td>
+                <td><button class="btn btn-success" (click)="viewBook(book)">View</button>
+                <td><button class="btn btn-success" (click)="deleteBook(book)">Delete</button>
+                    <button class="btn btn-success" (click)="editBook(book)" style="margin-left: 20px;">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-books-update [bookToUpdate]="bookToUpdate" [showComponent]="showUpdateComponent" (updatedBook)="updateBook($event)" (hideForm)="hideUpdateForm($event)" [hidden]="!showUpdateComponent"></app-books-update>
+</div>

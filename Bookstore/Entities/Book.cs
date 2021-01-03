@@ -9,7 +9,7 @@ namespace Bookstore.Entities
     {
         public String Title { get; set; }
         public DateTime? PublicationDate { get; set; }
-        public int Quantity { get; set; }
+        public float Price { get; set; }
 
         public int? AuthorId { get; set; }
 

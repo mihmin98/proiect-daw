@@ -43,6 +43,13 @@ namespace Bookstore.Controllers
             return Ok(service.Insert(payload));
         }
 
+        [HttpPost("returnId")]
+        [Authorize]
+        public IActionResult CreateAndReturnId(Rental payload)
+        {
+            return Ok(service.InsertAndReturnId(payload));
+        }
+
         [HttpPut]
         [Authorize]
         public IActionResult Update(Rental payload)

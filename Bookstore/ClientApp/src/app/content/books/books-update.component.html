@@ -1,0 +1,42 @@
+<div>
+    <p>Update Book</p>
+    <div class="example-container">
+        <form [formGroup]="bookForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Id</mat-label>
+                <input [readonly]=true formControlName="id" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input formControlName="title" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Publication Date</mat-label>
+                <input formControlName="publicationDate" matInput [matDatepicker]="picker" class="example-right-align">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Price</mat-label>
+                <input formControlName="price" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Author</mat-label>
+
+                <mat-select formControlName="authorIndex">
+                    <mat-option *ngFor="let author of authors; let i = index" [value]="i">
+                        {{ author.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+
+            <button mat-button color="warn" [disabled]="!bookForm.valid" type="submit"
+                (click)="updateBook()">Update</button>
+            <button (click)="close()">Close</button>
+        </form>
+    </div>
+</div>

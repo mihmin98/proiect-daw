@@ -1,0 +1,19 @@
+<div>
+    <p>Login</p>
+    <div class="example-container">
+        <form [formGroup]="loginForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input formControlName="username" matInput type="text" class="example-right-align">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter your password</mat-label>
+                <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+            </mat-form-field>
+            <br>
+            <button mat-button color="warn" [disabled]="!loginForm.valid" type="submit" (click)="login()">Login</button>
+            <button mat-button color="warn" type="submit" (click)="goToRegister()">Register</button>
+        </form>
+    </div>
+</div>
